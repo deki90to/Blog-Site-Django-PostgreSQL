@@ -9,3 +9,4 @@ The project includes:
 - Posting (CRUD functionality)
 - Commenting posts
 - Liking posts
+- Media system
