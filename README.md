@@ -8,5 +8,5 @@ The project includes:
 - Email contact system
 - Posting (CRUD functionality)
 - Commenting posts
-- Liking posts
+- Liking/Disliking posts
 - Media system
