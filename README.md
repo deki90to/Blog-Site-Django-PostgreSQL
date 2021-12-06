@@ -1,5 +1,5 @@
 # Full Functional Blog Site-Django-PostgreSQL
-Full Functional Blog Site System, With Django, SQlite/PostgreSQL-Configured &amp; Ready For Use
+Full Functional Blog Site System Using Django, SQlite-PostgreSQL(Configured &amp; Ready For Use)
 
 The project includes:
 - Registration system
