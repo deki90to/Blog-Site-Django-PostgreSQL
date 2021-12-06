@@ -69,7 +69,7 @@ WSGI_APPLICATION = 'blogProject.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'blogapp',
 #         'USER': 'postgres',
-#         'PASSWORD': 'dejan90to',
+#         'PASSWORD': 'password',
 #         'HOST': 'localhost',
 #         'PORT': '5432'
 #     }
