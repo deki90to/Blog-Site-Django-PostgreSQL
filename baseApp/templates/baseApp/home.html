@@ -1,0 +1,44 @@
+{% extends 'baseApp/base.html' %}
+
+{% block content %}
+
+<style>
+    .columns-wrapper {
+        display: grid;
+        grid-template-columns: 3fr 2fr 1fr;
+        font-family:'Times New Roman', Times, serif;
+    }
+    a {
+        text-decoration: none;
+    }
+    .center-column {
+        text-decoration: none;
+    }
+    .right-column {
+        margin-left: 10px;
+        border-left: 2px solid lightblue;
+        border-radius: 20px;
+        padding-left: 5px;
+        overflow: scroll;
+    }
+</style>
+
+
+<div class="columns-wrapper">
+    <div class="left-column">
+        {% include 'baseApp/columns/left.html' %}
+    </div>
+
+    <div class="center-column">
+        {% include 'baseApp/columns/center.html' %}
+    </div>
+
+    <div class="right-column">
+        {% include 'baseApp/columns/right.html' %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+

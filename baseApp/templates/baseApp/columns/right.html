@@ -1,0 +1,11 @@
+
+<h3> Activities </h3> <hr>
+
+{% if participants %}
+    {% for participant in participants %}
+        <b>@{{participant.user}}</b> commented <br>
+        <a href="">* {{participant.post}} <br><br></a>
+    {% endfor %}
+{% else %}
+    <h4> No activities yet </h4>
+{% endif %}

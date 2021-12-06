@@ -1,0 +1,76 @@
+<style>
+    .post {
+        width: 90%;
+        border-left: 3px solid lightblue;
+        padding-left: 5px;
+        padding-top: 1px;
+        border-bottom: 3px solid lightblue;
+        border-radius: 20px;
+    }
+    .image {
+        width: 100%;
+        max-height: auto;
+    }
+    .postLikes {
+        display: flex;
+    }
+    .btnLike, .btnDislike {
+        font-size: 70%;
+        margin-right: 5px;
+        border: 0px;
+        cursor: pointer;
+    }
+</style>
+
+{% if request.user.is_authenticated %}
+
+    {% if post %}
+    {% else %}
+        <form action="" method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+ 
+            <input type="file" name="image"><br><br>
+            <input type="text" name="post" placeholder="New Post">
+            <input type="submit" value='Post'>
+        </form>
+    {% endif %}
+
+{% endif %}
+
+{% for post in posts %}
+    <div class="post">
+        <h5>@{{post.user}} / {{post.created.date}}</h5> 
+        <a href="{% url 'comment' post.pk %}"> 
+            <h3> {{post|slice:"500"|safe}} </h3>
+
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="" class="image"><br>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+                {% if request.user == post.user %}
+                    <small>
+                        <a href="{% url 'update' post.pk %}"> Update  </a> |
+                        <a href="{% url 'deletePost' post.pk %}"> Delete </a>
+                    </small> <br> <br>
+                    <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
+                {% else %}
+                    <div class="postLikes">
+                        <input type="hidden" name="next" value="{{request.path}}">
+                        <form action="{% url 'like' post.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btnLike">Like <b>{{post.likes.count}}</b></button>
+                        </form>
+
+                        <input type="hidden" name="next" value="{{request.path}}">
+                        <form action="{% url 'dislike' post.pk %}" method="POST">
+                            {% csrf_token  %}
+                            <button type="submit" class="btnDislike"> Dislike <b>{{post.dislikes.count}}</b></button>
+                        </form> <br><br>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </a>
+    </div> 
+{% endfor %}
+

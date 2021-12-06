@@ -1,0 +1,29 @@
+{% extends 'baseApp/base.html' %}
+
+{% block content %}
+
+{% include 'baseApp/style.html' %}
+
+
+
+<h1>Register Form</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="formcontainer">
+    <div class="container">
+        <input type="text" placeholder="Username" name="username" required>
+        <input type="password" placeholder="Enter Password" name="password1" required>
+        <input type="password" placeholder="Enter Password" name="password2" required>
+    </div>
+
+
+    <button type="submit"> Register </button>
+
+    <div class="container">
+        <span class="psw"><a href="{% url 'loginUser' %}"> Swith to Login Page </a></span>
+    </div>
+</form>
+
+
+{% endblock %}

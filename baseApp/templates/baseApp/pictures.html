@@ -1,0 +1,53 @@
+{% extends 'baseApp/base.html' %}
+
+{% block content %}
+
+<style>
+    .pictures {
+        text-align: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+</style>
+
+<div class="pictures">
+
+    {% if post.image.url %}
+        <img src="{{ post.image.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %}
+
+    <!-- {% if post.imageA %}
+        <img src="{{ post.imageA.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %}
+
+    {% if post.imageB %}
+        <img src="{{ post.imageB.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %}
+
+    {% if post.imageC %}
+        <img src="{{ post.imagec.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %}
+
+    {% if post.imageD %}
+        <img src="{{ post.imageD.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %}
+
+    {% if post.imageE %}
+        <img src="{{ post.imageE.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %}
+
+    {% if post.imageF %}
+        <img src="{{ post.imageF.url }}" alt="" width="100%">
+    {% else %}
+    {% endif %} -->
+
+</div>
+
+<h1><a href="{{ request.META.HTTP_REFERER }}"> Back </a></h1>
+{% endblock content %}

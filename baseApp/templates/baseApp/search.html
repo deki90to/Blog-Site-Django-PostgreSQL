@@ -1,0 +1,44 @@
+{% extends 'baseApp/base.html' %}
+
+{% block content %}
+
+<style>
+    .post {
+        border-left: 3px solid rgb(82, 94, 255);
+        border-radius: 5px;
+        padding-left: 5px;
+        text-decoration: none;
+    }
+    .image {
+        width: 40%;
+        max-height: 900px;
+    }
+</style>
+
+<h2> You searched for "{{q}}"</h2> 
+{% if searched %}
+    {% for search in searched %}
+        <div>
+            <b> <h5>@{{search.user}} </b> / {{search.created.date}}</h5>
+            <a href="{% url 'comment' search.pk %}">
+                <h3>{{search}}</h3>
+                {% if search.image %}
+                    <img src="{{ search.image.url }}" alt="" class="image"><br>
+                {% endif %}
+            </a>
+
+            {% if request.user.is_authenticated %}
+                {% if request.user == post.user %}
+                    <div>
+                        <a href="{% url 'updatePost' post.pk %}"> <h6 >Update </h6> </a> 
+                        <a href="{% url 'deletePost' post.pk %}"> <h6> Delete </h6> </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <p> Nothing found... </p>
+{% endif %}
+
+{% endblock content %}
