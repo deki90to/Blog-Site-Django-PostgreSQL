@@ -8,12 +8,21 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.core.paginator import EmptyPage, Paginator
 
 
 def home(request):
     if request.method == 'GET':
-        posts = Post.objects.all()
+        # posts = Post.objects.all()
         participants = Comment.objects.all()
+        
+        p = Paginator(Post.objects.all(), 5)
+        page = request.GET.get('page')
+        
+        try:
+            posts = p.get_page(page)
+        except EmptyPage:
+            posts = p.get_page(p.num_pages)
         
     if request.method == 'POST':
         post = Post.objects.create(
@@ -24,7 +33,7 @@ def home(request):
         messages.success(request, '✔Posted')
         return redirect('home')        
 
-    context = {'posts': posts, 'participants': participants}
+    context = {'posts': posts, 'participants': participants, 'posts': posts}
     return render(request, 'baseApp/home.html', context)
 
 
@@ -166,34 +175,28 @@ def addLike(request, pk):
     next = request.POST.get('next', '/')
     
     
-# By default post is not disliked
     isDislike = False
     
-# Check if user disliked the post, if it is, dislike become true and loop stops
     for dislike in post.dislikes.all():
         if dislike == request.user:
             isDislike = True
             break
         
-# # If there IS ALREADY dislike, remove dislike
     if isDislike:
         post.dislikes.remove(request.user)
     
     
-# # By default post is not liked
+    
     isLike = False
     
-# # Check if user liked the post, if it is, like become true and loop stops
     for like in post.likes.all():
         if like == request.user:
             isLike = True
             break
         
-# # If post isn't liked, add user
     if not isLike:
         post.likes.add(request.user)
         
-# # If post is already liked, remove user
     if isLike:
         post.likes.remove(request.user)
         
@@ -207,33 +210,28 @@ def addDislike(request, pk):
     next = request.POST.get('next', '/')
 
 
-# By default post is not liked
     isLike = False
     
-# Check if user liked the post, if it is, like become true and loop stops
     for like in post.likes.all():
         if like == request.user:
             isLike = True
             break
         
-# If post is already liked, removed existing like  
     if isLike:
         post.likes.remove(request.user)
         
-# By default post is not disliked
+        
+        
     isDislike = False
     
-# Check if user disliked the post, if it is, dislike become true and loop stops
     for dislike in post.dislikes.all():
         if dislike == request.user:
             isDislike = True
             break
         
-# If post is not disliked, add dislike
     if not isDislike:
         post.dislikes.add(request.user)
         
-# If post is already disliked, remove dislike
     if isDislike:
         post.dislikes.remove(request.user)
         

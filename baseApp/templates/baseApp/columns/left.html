@@ -72,5 +72,20 @@
             {% endif %}
         </a>
     </div> 
-{% endfor %}
+{% endfor %} <br>
+
+{% if posts.has_previous %}
+    <a href="?page=1"> Page 1 </a>
+    | <a href="?page={{posts.previous_page_number}}"> &laquo Previous </a> |
+{% endif %}
+
+{% if posts.has_next %}
+    <a href="?page={{posts.next_page_number}}"> Next &raquo </a> |
+    <a href="?page={{posts.paginator.num_pages}}"> Page {{posts.paginator.num_pages}} </a> |
+{% endif %} 
+
+( {{posts.number}} of {{posts.paginator.num_pages}} pages )<br><br>
+
+
+
 
