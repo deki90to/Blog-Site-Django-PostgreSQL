@@ -10,3 +10,4 @@ The project includes:
 - Commenting system
 - Liking/Disliking system
 - Media system
+- Pagination system
