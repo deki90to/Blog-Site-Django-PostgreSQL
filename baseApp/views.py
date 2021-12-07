@@ -166,34 +166,27 @@ def addLike(request, pk):
     next = request.POST.get('next', '/')
     
     
-# By default post is not disliked
     isDislike = False
     
-# Check if user disliked the post, if it is, dislike become true and loop stops
     for dislike in post.dislikes.all():
         if dislike == request.user:
             isDislike = True
             break
         
-# # If there IS ALREADY dislike, remove dislike
     if isDislike:
         post.dislikes.remove(request.user)
     
     
-# # By default post is not liked
     isLike = False
     
-# # Check if user liked the post, if it is, like become true and loop stops
     for like in post.likes.all():
         if like == request.user:
             isLike = True
             break
         
-# # If post isn't liked, add user
     if not isLike:
         post.likes.add(request.user)
         
-# # If post is already liked, remove user
     if isLike:
         post.likes.remove(request.user)
         
@@ -207,33 +200,27 @@ def addDislike(request, pk):
     next = request.POST.get('next', '/')
 
 
-# By default post is not liked
     isLike = False
     
-# Check if user liked the post, if it is, like become true and loop stops
     for like in post.likes.all():
         if like == request.user:
             isLike = True
             break
         
-# If post is already liked, removed existing like  
     if isLike:
         post.likes.remove(request.user)
         
-# By default post is not disliked
+        
     isDislike = False
     
-# Check if user disliked the post, if it is, dislike become true and loop stops
     for dislike in post.dislikes.all():
         if dislike == request.user:
             isDislike = True
             break
         
-# If post is not disliked, add dislike
     if not isDislike:
         post.dislikes.add(request.user)
         
-# If post is already disliked, remove dislike
     if isDislike:
         post.dislikes.remove(request.user)
         
