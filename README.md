@@ -7,6 +7,6 @@ The project includes:
 - Password reset system
 - Email contact system
 - Posting (CRUD functionality)
-- Commenting posts
-- Liking/Disliking posts
+- Commenting system
+- Liking/Disliking system
 - Media system
