@@ -69,7 +69,7 @@ WSGI_APPLICATION = 'blogProject.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'blogapp',
 #         'USER': 'postgres',
-#         'PASSWORD': 'dejan90to',
+#         'PASSWORD': 'password',
 #         'HOST': 'localhost',
 #         'PORT': '5432'
 #     }
@@ -141,6 +141,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'deki90to@gmail.com'
-EMAIL_HOST_PASSWORD = 'dejan90to'
+EMAIL_HOST_PASSWORD = 'password' #Your email account password here
 
 # MEDIA_URL = '/media/'

@@ -186,7 +186,10 @@ def addLike(request, pk):
         post.dislikes.remove(request.user)
     
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> 87599da0860a622c130f564c1795256a33096e1e
     isLike = False
     
     for like in post.likes.all():
@@ -221,7 +224,10 @@ def addDislike(request, pk):
         post.likes.remove(request.user)
         
         
+<<<<<<< HEAD
         
+=======
+>>>>>>> 87599da0860a622c130f564c1795256a33096e1e
     isDislike = False
     
     for dislike in post.dislikes.all():
