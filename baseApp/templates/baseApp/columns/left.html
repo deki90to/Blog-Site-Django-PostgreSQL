@@ -5,7 +5,6 @@
         padding-left: 5px;
         padding-top: 1px;
         border-bottom: 3px solid lightblue;
-        border-radius: 20px;
     }
     .image {
         width: 100%;
@@ -20,6 +19,7 @@
         border: 0px;
         cursor: pointer;
     }
+
 </style>
 
 {% if request.user.is_authenticated %}
@@ -78,7 +78,6 @@
     <a href="?page=1"> Page 1 </a>
     | <a href="?page={{posts.previous_page_number}}"> &laquo Previous </a>
     ( {{posts.number}} of {{posts.paginator.num_pages}} pages )<br><br>
-
 {% endif %}
 
 {% if posts.has_next %}

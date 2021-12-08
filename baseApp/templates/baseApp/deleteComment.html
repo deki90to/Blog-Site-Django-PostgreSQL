@@ -1,17 +1,60 @@
 {% extends 'baseApp/base.html' %}
 
+{% if request.user.is_authenticated %}
 
 {% block content %}
 
+<style>
+    .delCommMain {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+    }
+    .delCommLeft {
+        width: 90%;
+        border-left: 3px solid lightblue;
+        padding-left: 5px;
+        padding-top: 1px;
+        border-bottom: 3px solid lightblue;
+}
+    .image {
+        width: 100%;
+        max-height: auto;
+    }
+    .delCommRight {
+        border-right: 3px solid red;
+        border-bottom: 3px solid red;
+    }
+</style>
 
 
+<div class="delCommMain">
 
-<!--<form action="" method="POST">-->
-<!--    {% csrf_token %}-->
-<!--    Delete "{{comment}}" <hr>-->
-<!--    <input type="submit" value="Yes"> | <a href="{{ request.META.HTTP_REFERER }}"> Go Back </a>-->
-<!--</form>-->
+    <div class="delCommLeft">
+        {% if comment %}
+           <h5>@{{comment.post.user}} / {{comment.post.created.date}}</h5> 
+           <h3> {{comment.post}}</h3>
+
+            {% if comment.post.image %}
+                <img src="{{ comment.post.image.url }}" alt="" class="image"><br>
+            {% endif %}
+        {% endif %}
+    </div> 
+
+   <div class="delCommRight">
+        {% if comment %}
+            <h3> Delete "{{comment.comment}}"?</h3>
+            
+            <form action="" method="POST">
+                {% csrf_token %}
+                <button type="submit"> Yes </button>
+                <button><a href="{{request.META.HTTP_REFERER}}"> Abort </a></button>
+            </form>
+        {% endif %}
+   </div>
+
+</div>
 
 
 {% endblock content %}
+{% endif %}
 

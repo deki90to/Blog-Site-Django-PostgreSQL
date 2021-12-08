@@ -128,7 +128,7 @@ def deletePost(request, pk):
 
 @login_required(login_url='loginUser')
 def deleteComment(request, pk):
-    deleteComment = Comment.objects.get(pk=pk)
+    comment = Comment.objects.get(pk=pk)
     posts = Post.objects.all()
     
     if request.method == 'POST':
@@ -136,7 +136,7 @@ def deleteComment(request, pk):
         messages.success(request, 'Comment Deleted!')
         return redirect('comment', pk=comment.post.pk)
 
-    context = {'deleteComment': deleteComment, 'posts': posts}
+    context = {'comment': comment, 'posts': posts}
     return render(request, 'baseApp/deleteComment.html', context)
 
 
@@ -164,6 +164,7 @@ def pictures(request, pk):
     post = Post.objects.get(pk=pk)
     
     context = {'post': post}
+    messages.success(request, 'File Sucessfully Picked Up, Now You Can Post It!')
     return render(request, 'baseApp/pictures.html', context)
 
 
@@ -174,28 +175,23 @@ def addLike(request, pk):
     post = Post.objects.get(pk=pk)
     next = request.POST.get('next', '/')
     
-    
     isDislike = False
     
     for dislike in post.dislikes.all():
         if dislike == request.user:
             isDislike = True
             break
-        
     if isDislike:
         post.dislikes.remove(request.user)
     
-
     isLike = False
     
     for like in post.likes.all():
         if like == request.user:
             isLike = True
             break
-        
     if not isLike:
         post.likes.add(request.user)
-        
     if isLike:
         post.likes.remove(request.user)
         
@@ -208,17 +204,14 @@ def addDislike(request, pk):
     post = Post.objects.get(pk=pk)
     next = request.POST.get('next', '/')
 
-
     isLike = False
     
     for like in post.likes.all():
         if like == request.user:
             isLike = True
             break
-        
     if isLike:
         post.likes.remove(request.user)
-        
         
     isDislike = False
     
@@ -226,10 +219,8 @@ def addDislike(request, pk):
         if dislike == request.user:
             isDislike = True
             break
-        
     if not isDislike:
         post.dislikes.add(request.user)
-        
     if isDislike:
         post.dislikes.remove(request.user)
         

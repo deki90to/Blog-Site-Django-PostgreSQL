@@ -13,14 +13,14 @@
 
 {% if comments %}
 
-<h3> Topic </h3> <hr>
+<h3> Topic </h3> 
 
-<h3> {{post}} </h3> 
+<h4> {{post}} </h4> <hr>
     {% if post.image %}
         <a href="{% url 'pictures' post.id %}">
             <img src="{{ post.image.url }}" alt="" height="100" width="200" class="topicImage">
         </a> <br> <br>
-    {% endif %}
+    {% endif %} 
 <i> Comments </i> <br><br>
 
 <!-- Adding new comment if already commented -->

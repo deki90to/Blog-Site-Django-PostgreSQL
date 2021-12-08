@@ -5,11 +5,10 @@
 <style>
     .post {
         width: 90%;
-        border-left: 3px solid lightblue;
+        border-left: 3px solid red;
+        border-bottom: 3px solid red;
         padding-left: 5px;
         padding-top: 1px;
-        border-bottom: 3px solid lightblue;
-        border-radius: 20px;
     }
     .image {
         width: 100%;
@@ -21,12 +20,9 @@
 </style>
 
 {% if request.user.is_authenticated %}
-
 {% else %}
-
-<a href="{% url 'loginUser' %}"> Login </a> or
-<a href="{% url 'registerUser' %}"> Register </a> So You Can Post! <hr>
-
+    <a href="{% url 'loginUser' %}"> Login </a> or
+    <a href="{% url 'registerUser' %}"> Register </a> So You Can Post! <hr>
 {% endif %}
 
 
@@ -36,25 +32,16 @@
 
 {% for post in posts %}
     <div class="post">
-        <h5>@{{post.user}} / {{post.created.date}}</h5>
-        <a href="{% url 'comment' post.pk %}">
-            <h2> {{post|slice:"500"|safe}} </h2>
-        </a>
-        {% if post.image %}
-            <img src="{{ post.image.url }}" alt="" class="image" ><br>
-        {% endif %}
-
         {% if request.user.is_authenticated %}
             {% if request.user == post.user %}
                 {% if deletePost %}
                     {% if deletePost.id == post.id %}
                         <form action="" method="POST">
                             {% csrf_token %}
-                            <small>
-                                <p> Delete "{{deletePost}}"? </p>
+                                <h3> Delete "{{deletePost}}"? </h3>
                                 <input type="submit" value="Yes"> |
-                                <a href="{{ request.META.HTTP_REFERER }}"> No </a>
-                            </small> <br><br>
+                                <button><a href="{{request.META.HTTP_REFERER}}"> Abort </a></button>
+                            <br><br>
                         </form>
                     {% endif %}
                 {% else %}

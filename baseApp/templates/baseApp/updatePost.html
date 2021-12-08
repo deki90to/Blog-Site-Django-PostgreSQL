@@ -6,10 +6,9 @@
     .post {
         width: 40%;
         border-left: 3px solid lightblue;
+        border-bottom: 3px solid lightblue;
         padding-left: 5px;
         padding-top: 1px;
-        border-bottom: 3px solid lightblue;
-        border-radius: 20px;
     }
     .image {
         width: 100%;
@@ -21,38 +20,25 @@
 </style>
 
 {% if request.user.is_authenticated %}
-
-{% for post in posts %}
-    <div class="post">
-        <h5>@{{post.user}} / {{post.created.date}}</h5> 
-        <a href="{% url 'comment' post.pk %}"> 
-            <h2> {{post|slice:"500"|safe}} </h2>
-        </a>
-        {% if updatePost %}
-            {% if updatePost.id == post.id %}
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <small>
+    {% for post in posts %}
+        <div class="post">
+            {% if updatePost %}
+                {% if updatePost.id == post.id %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
                         {{form.as_p}} <br>
                         <input type="submit" value="Save"> |
-                        <a href="{{request.META.HTTP_REFERER}}"> Abort </a>
-                    </small> <br> <br>
-                </form>
+                        <button><a href="{{request.META.HTTP_REFERER}}"> Abort </a></button>
+                        <br> <br>
+                    </form> 
+                {% endif %}
+            {% else %}
             {% endif %}
-        {% else %}
-        {% endif %}
             {% if post.image %}
                 <img src="{{ post.image.url }}" alt="" class="image" ><br>
             {% endif %}
-
-        {% if request.user.is_authenticated %}
-            {% if request.user == post.user %}
-
-            {% endif %}
-        {% endif %}
-    </div>
-{% endfor %}
-
+        </div>
+    {% endfor %}
 {% endif %}
 
 
