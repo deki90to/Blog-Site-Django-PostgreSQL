@@ -49,7 +49,7 @@
 {% for post in posts %}
     <div class="post">
         <h5>@{{post.user}} / {{post.created.date}}</h5> 
-        <a href="{% url 'comment' post.pk %}"> 
+        <a href="{% url 'comment' post.pk %}?page={{posts.number}}"> 
             <h3> {{post|slice:"500"|safe}} </h3>
 
             {% if post.image %}
