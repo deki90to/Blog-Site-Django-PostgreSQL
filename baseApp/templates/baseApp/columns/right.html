@@ -3,8 +3,16 @@
 
 {% if participants %}
     {% for participant in participants %}
-        <b>@{{participant.user}}</b> commented <br>
-        <a href="">* {{participant.post}} <br><br></a>
+
+        {% if participant.post %}
+            <b> @{{participant.user}} </b> commented <br>
+            {{participant.post}}
+
+            {% if participant.post.image %}
+                @{{participant.post.user}}'s image
+            {% endif %}
+        {% endif %} <br><br>
+
     {% endfor %}
 {% else %}
     <h4> No activities yet </h4>
