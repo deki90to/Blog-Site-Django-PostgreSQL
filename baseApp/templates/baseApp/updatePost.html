@@ -6,9 +6,8 @@
     .post {
         width: 40%;
         border-left: 3px solid lightblue;
-        border-bottom: 3px solid lightblue;
-        padding-left: 5px;
-        padding-top: 1px;
+        padding-left: 20px;
+        padding-top: 10%;
     }
     .image {
         width: 100%;
@@ -27,11 +26,9 @@
                     <form action="" method="POST">
                         {% csrf_token %}
                         {{form.as_p}} <br>
-                        <input type="submit" value="Save"> |
-                        <button><a href="{{request.META.HTTP_REFERER}}"> Abort </a></button>
-                        <br> <br>
+                        <input type="submit" value="Save"> |  <a href="{{request.META.HTTP_REFERER}}"> Abort </a>
                     </form> 
-                {% endif %}
+                {% endif %} 
             {% else %}
             {% endif %}
             {% if post.image %}

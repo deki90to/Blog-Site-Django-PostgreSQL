@@ -40,10 +40,19 @@ def home(request):
 
 @login_required(login_url='loginUser')
 def comment(request, pk):
-    posts = Post.objects.all()
+    # posts = Post.objects.all()
+        
     participants = Comment.objects.all()
     post = Post.objects.get(pk=pk)
     comments = post.comment_set.all()
+    
+    p = Paginator(Post.objects.all(), 5)
+    page = request.GET.get('page')
+    
+    try:
+        posts = p.get_page(page)
+    except EmptyPage:
+        posts = p.get_page(p.num_pages)
     
     if request.method == 'POST':
         comment = Comment.objects.create(
@@ -60,7 +69,7 @@ def comment(request, pk):
     #     messages.success(request, 'Post Deleted.....')
     #     return redirect('home', pk=post.id)
 
-    context = {'post': post, 'comments': comments, 'posts': posts, 'participants': participants}
+    context = {'post': post, 'comments': comments, 'posts': posts, 'participants': participants, 'page': page}
     return render(request, 'baseApp/home.html', context)
 
 
@@ -164,7 +173,6 @@ def pictures(request, pk):
     post = Post.objects.get(pk=pk)
     
     context = {'post': post}
-    messages.success(request, 'File Sucessfully Picked Up, Now You Can Post It!')
     return render(request, 'baseApp/pictures.html', context)
 
 

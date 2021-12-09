@@ -6,9 +6,8 @@
     .post {
         width: 90%;
         border-left: 3px solid red;
-        border-bottom: 3px solid red;
-        padding-left: 5px;
-        padding-top: 1px;
+        padding-left: 20px;
+        padding-top: 10%;
     }
     .image {
         width: 100%;
@@ -38,11 +37,9 @@
                     {% if deletePost.id == post.id %}
                         <form action="" method="POST">
                             {% csrf_token %}
-                                <h3> Delete "{{deletePost}}"? </h3>
-                                <input type="submit" value="Yes"> |
-                                <button><a href="{{request.META.HTTP_REFERER}}"> Abort </a></button>
-                            <br><br>
-                        </form>
+                            <h3> Delete "{{deletePost}}"? </h3>
+                            <input type="submit" value="Yes"> | <a href="{{request.META.HTTP_REFERER}}"> Abort </a> 
+                        </form> 
                     {% endif %}
                 {% else %}
                 {% endif %}

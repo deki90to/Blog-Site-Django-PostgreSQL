@@ -31,7 +31,7 @@
 
     <div class="delCommLeft">
         {% if comment %}
-           <h5>@{{comment.post.user}} / {{comment.post.created.date}}</h5> 
+           <h5> {{comment.post.created.date}}</h5> 
            <h3> {{comment.post}}</h3>
 
             {% if comment.post.image %}
@@ -42,13 +42,12 @@
 
    <div class="delCommRight">
         {% if comment %}
-            <h3> Delete "{{comment.comment}}"?</h3>
+            <h3> Delete: "{{comment.comment}}"?</h3>
             
             <form action="" method="POST">
                 {% csrf_token %}
-                <button type="submit"> Yes </button>
-                <button><a href="{{request.META.HTTP_REFERER}}"> Abort </a></button>
-            </form>
+                <button type="submit"> Yes </button> | <a href="{{request.META.HTTP_REFERER}}"> Abort </a> 
+            </form> 
         {% endif %}
    </div>
 
