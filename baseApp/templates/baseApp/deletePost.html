@@ -3,6 +3,13 @@
 {% block content %}
 
 <style>
+    .delPostMain {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+</style>
+
+<!-- <style>
     .post {
         width: 90%;
         border-left: 3px solid red;
@@ -25,8 +32,6 @@
 {% endif %}
 
 
-{% block messages %}
-{% endblock messages %}
 
 
 {% for post in posts %}
@@ -43,9 +48,56 @@
                     {% endif %}
                 {% else %}
                 {% endif %}
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="" class="image" ><br>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endfor %} <br> -->
+
+
+
+<div class='delPostMain'>
+
+    <div class="delPostLeft">
+        {% if request.user.is_authenticated %}
+        {% else %}
+            <a href="{% url 'loginUser' %}"> Login </a> or
+            <a href="{% url 'registerUser' %}"> Register </a> So You Can Post! <hr>
+        {% endif %}
+
+
+{% block messages %}
+{% endblock messages %}
+
+{% for post in posts %}
+    <div class="post">
+        {% if request.user.is_authenticated %}
+            {% if request.user == post.user %}
+                {% if deletePost %}
+                    {% if deletePost.id == post.id %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <h3> Delete "{{deletePost}}"? </h3>
+                                {% if deletePost.image %}
+                                    <img src="{{deletePost.image.url}}" alt="">
+                                {% endif %}
+                            <input type="submit" value="Yes"> | <a href="{{request.META.HTTP_REFERER}}"> Abort </a> 
+                        </form> 
+                    {% endif %}
+                {% else %}
+                {% endif %}
+
             {% endif %}
         {% endif %}
     </div>
 {% endfor %} <br>
+    </div>
+
+    <div class="delPostRight">
+        <h1>nista</h1>
+    </div>
+</div>
 
 {% endblock content %}
