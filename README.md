@@ -2,12 +2,12 @@
 Full Functional Blog Site System Using Django, SQlite-PostgreSQL(Configured &amp; Ready For Use)
 
 The project includes:
-- Registration system
-- Login system
-- Password reset system
-- Email contact system
+- Registration
+- Login
+- Password reset
+- Email contact
 - CRUD functionality
-- Commenting system
-- Liking/Disliking system
+- Commenting posts
+- Liking/Disliking
 - Media system
-- Pagination system
+- Pagination
