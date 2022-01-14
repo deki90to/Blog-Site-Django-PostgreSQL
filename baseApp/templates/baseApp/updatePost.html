@@ -7,7 +7,7 @@
         width: 40%;
         border-left: 3px solid lightblue;
         padding-left: 20px;
-        padding-top: 10%;
+        padding-top: 1%;
     }
     .image {
         width: 100%;
@@ -25,14 +25,17 @@
                 {% if updatePost.id == post.id %}
                     <form action="" method="POST">
                         {% csrf_token %}
-                        {{form.as_p}} <br>
+                        {{form.as_p}} 
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="" class="image"><br>
+                            {% else %}
+
+                            {% endif %}
                         <input type="submit" value="Save"> |  <a href="{{request.META.HTTP_REFERER}}"> Abort </a>
                     </form> 
                 {% endif %} 
             {% else %}
-            {% endif %}
-            {% if post.image %}
-                <img src="{{ post.image.url }}" alt="" class="image" ><br>
+
             {% endif %}
         </div>
     {% endfor %}

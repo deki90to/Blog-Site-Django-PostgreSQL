@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,6 @@
     <title> BlogSite </title>
 </head>
 <body>
-
 <style>
     .nav {
         box-shadow: 1px 1px 15px;
@@ -23,12 +22,13 @@
     }
 </style>
 
+
 <div class="nav"> {% include 'baseApp/navbar.html' %} </div>
 
 {% block messages %}
     {% if messages %}
         {% for message in messages %}
-            <h3> {{message}} </h3>
+            <h4> {{message}} </h4>
         {% endfor %}
     {% endif %}
 {% endblock messages %}

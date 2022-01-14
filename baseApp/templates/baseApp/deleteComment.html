@@ -30,6 +30,7 @@
 <div class="delCommMain">
 
     <div class="delCommLeft">
+        <h3> Topic </h3> <hr style="margin: 0;width: 30%;">
         {% if comment %}
            <h5> {{comment.post.created.date}}</h5> 
            <h3> {{comment.post}}</h3>
@@ -40,7 +41,8 @@
         {% endif %}
     </div> 
 
-   <div class="delCommRight">
+    <div class="delCommRight">
+        <h3> My Comment </h3> <hr style="margin: 0;width: 30%;">
         {% if comment %}
             <h3> Delete: "{{comment.comment}}"?</h3>
             
@@ -49,7 +51,7 @@
                 <button type="submit"> Yes </button> | <a href="{{request.META.HTTP_REFERER}}"> Abort </a> 
             </form> 
         {% endif %}
-   </div>
+    </div>
 
 </div>
 

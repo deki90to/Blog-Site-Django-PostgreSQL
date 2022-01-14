@@ -46,7 +46,7 @@ def comment(request, pk):
     post = Post.objects.get(pk=pk)
     comments = post.comment_set.all()
     
-    p = Paginator(Post.objects.all(), 5)
+    p = Paginator(Post.objects.all(), 10)
     page = request.GET.get('page')
     
     try:

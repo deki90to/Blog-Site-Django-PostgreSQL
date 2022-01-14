@@ -3,29 +3,29 @@
 {% block content %}
 
 <style>
-    .post {
-        border-left: 3px solid rgb(82, 94, 255);
-        border-radius: 5px;
-        padding-left: 5px;
-        text-decoration: none;
+    .search {
+        width: 90%;
+        margin: auto 5%;
+        list-style-type: none;
+        padding-left: 10px;
+        border-left: 2px solid blue;
     }
     .image {
-        width: 40%;
-        max-height: 900px;
+
     }
 </style>
 
 <h2> You searched for "{{q}}"</h2> 
 {% if searched %}
     {% for search in searched %}
-        <div>
+        <div class="search">
             <b> <h5>@{{search.user}} </b> / {{search.created.date}}</h5>
             <a href="{% url 'comment' search.pk %}">
                 <h3>{{search}}</h3>
                 {% if search.image %}
                     <img src="{{ search.image.url }}" alt="" class="image"><br>
                 {% endif %}
-            </a>
+            </a><hr>
 
             {% if request.user.is_authenticated %}
                 {% if request.user == post.user %}

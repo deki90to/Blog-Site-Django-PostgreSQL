@@ -12,17 +12,15 @@
 </style>
 
 {% if comments %}
-
 <h3> Topic </h3> 
-
 <h4> {{post}} </h4> <hr>
     {% if post.image %}
         <a href="{% url 'pictures' post.id %}">
-            <img src="{{ post.image.url }}" alt="" height="100" width="200" class="topicImage">
+            <img src="{{ post.image.url }}" class="topicImage" style="width: 100%">
         </a> <br> <br>
     {% endif %} 
+    
 <i> Comments </i> <br><br>
-
 <!-- Adding new comment if already commented -->
 {% if request.user.is_authenticated %}
     <form action="" method="POST">
@@ -32,9 +30,9 @@
     </form>
 {% else %} 
     <a href="{% url 'loginUser' %}"> Login </a> or <a href="registerUser"> Register </a> So You Can Comment!
-{% endif %}
+{% endif %}<br>
 
-<br>
+
 {% if messages %}
     {% for message in messages %}
         {{message}} <br> <br>
@@ -54,7 +52,6 @@
 {% endfor %} <br>
 
 {% else %}
-
 <!-- Adding new comment INPUT if there's NO COMMENTS -->
 {% if request.user.is_authenticated %}
     {% if post %}
@@ -66,7 +63,6 @@
                 <img src="{{ post.image.url }}" alt="" height="100" width="200" class="topicImage">
             </a> <br> <br>
         {% endif %}
-
 
         <i>Comments</i> <br> <br>
             <form action="" method="POST">

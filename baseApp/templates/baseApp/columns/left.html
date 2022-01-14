@@ -1,8 +1,8 @@
 <style>
     .post {
-        width: 90%;
+        width: 95%;
         border-left: 3px solid lightblue;
-        padding-left: 5px;
+        padding-left: 10px;
         padding-top: 1px;
         border-bottom: 3px solid lightblue;
     }
@@ -19,7 +19,6 @@
         border: 0px;
         cursor: pointer;
     }
-
 </style>
 
 {% if request.user.is_authenticated %}
@@ -27,7 +26,6 @@
     {% else %}
         <form action="" method='POST' enctype="multipart/form-data">
             {% csrf_token %}
- 
             <input type="file" name="image"><br><br>
             <input type="text" name="post" placeholder="New Post">
             <input type="submit" value='Post'>
@@ -82,7 +80,6 @@
         </a>
     </div> 
 {% endfor %} <br>
-
 
 {% if posts.has_previous %}
     <a href="?page=1"> <button> 1 </button> </a>

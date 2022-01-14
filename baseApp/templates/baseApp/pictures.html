@@ -11,9 +11,10 @@
 </style>
 
 <div class="pictures">
-
     {% if post.image.url %}
-        <img src="{{ post.image.url }}" alt="" width="100%">
+        <a href="{{ request.META.HTTP_REFERER }}"> 
+            <img src="{{ post.image.url }}" alt="" width="100%"> 
+        </a>
     {% else %}
     {% endif %}
 
@@ -46,8 +47,7 @@
         <img src="{{ post.imageF.url }}" alt="" width="100%">
     {% else %}
     {% endif %} -->
-
 </div>
 
-<h1><a href="{{ request.META.HTTP_REFERER }}"> Back </a></h1>
+
 {% endblock content %}
