@@ -2,26 +2,22 @@
 <h3> Activities </h3> <hr>
 
 {% if participants %}
-    {% for participant in participants %}
+  {% for participant in participants %}
 
-        {% if participant.post %}
-            <b> {{participant.user}} </b> commented {{participant.post.user}}'s 
+  {% if participant.post %}
+  <b> {{ participant.user }} </b> commented {{ participant.post.user }}'s 
 
-            {% if participant.post.image %} 
-            image 
-                <a href="#">
-                    <img src="{{participant.post.image.url}}" style="width: 100%;">
-                </a>
-
-            {% else %}
-                post <small><small>>></small></small> 
-                <a href="#"> {{participant.post}} </a> 
-            {% endif %}
-
-        {% endif %} <br><hr>
-        
-    {% endfor %}
-
+  {% if participant.post.image %} 
+    image <a href="{% url 'comment' participant.post.id %}">
+      <img src="{{ participant.post.image.url }}" style="width: 100%;">
+    </a>
+  {% else %}
+    post <small><small>>></small></small> 
+    <a href="{% url 'comment'  participant.post.id %}"> {{ participant.post }} </a> 
+  {% endif %}
+  {% endif %} <br><hr>
+      
+  {% endfor %}
 {% else %}
     <h4> No Activities </h4>
 {% endif %}
