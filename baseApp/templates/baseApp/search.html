@@ -3,42 +3,43 @@
 {% block content %}
 
 <style>
-    .search {
-        width: 90%;
-        margin: auto 5%;
-        list-style-type: none;
-        padding-left: 10px;
-        border-left: 2px solid blue;
-    }
-    .image {
-
-    }
+.search {
+  width: 90%;
+  margin: auto 5%;
+  list-style-type: none;
+  padding-left: 10px;
+  border-left: 2px solid blue;
+}
+.image {
+  width: 100%;
+  max-height: auto;
+}
 </style>
 
 <h2> You searched for "{{q}}"</h2> 
 {% if searched %}
-    {% for search in searched %}
-        <div class="search">
-            <b> <h5>@{{search.user}} </b> / {{search.created.date}}</h5>
-            <a href="{% url 'comment' search.pk %}">
-                <h3>{{search}}</h3>
-                {% if search.image %}
-                    <img src="{{ search.image.url }}" alt="" class="image"><br>
-                {% endif %}
-            </a><hr>
+{% for search in searched %}
+<div class="search">
+<b> <h5>@{{search.user}} </b> / {{search.created.date}}</h5>
+<a href="{% url 'comment' search.pk %}">
+  <h3>{{search}}</h3>
+  {% if search.image %}
+      <img src="{{ search.image.url }}" alt="" class="image"><br>
+  {% endif %}
+</a><hr>
 
-            {% if request.user.is_authenticated %}
-                {% if request.user == post.user %}
-                    <div>
-                        <a href="{% url 'updatePost' post.pk %}"> <h6 >Update </h6> </a> 
-                        <a href="{% url 'deletePost' post.pk %}"> <h6> Delete </h6> </a>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    {% endfor %}
+{% if request.user.is_authenticated %}
+{% if request.user == post.user %}
+<div>
+  <a href="{% url 'updatePost' post.pk %}"> <h6 >Update </h6> </a> 
+  <a href="{% url 'deletePost' post.pk %}"> <h6> Delete </h6> </a>
+</div>
+{% endif %}
+{% endif %}
+</div>
+{% endfor %}
 {% else %}
-    <p> Nothing found... </p>
+<p> Nothing found... </p>
 {% endif %}
 
 {% endblock content %}

@@ -2,35 +2,34 @@
 {% load static %}
 
 <div style="float: left;">
-    <form action="{% url 'search' %}" method="GET">
-        {% csrf_token %}
-        <input type="text" name="q" placeholder="Search Posts">
-        <input type="submit" value="Search">
-    </form>
+<form action="{% url 'search' %}" method="GET">
+{% csrf_token %}
+<input type="text" name="q" placeholder="Search Posts">
+<input type="submit" value="Search">
+</form>
 </div>
 
 <div style="text-align: right;"> 
-        Hello <b>{{request.user}}</b>, 
-        <a href="{% url 'contact' %}"> Contact Me </a> |
-        <a href="{% url 'logoutUser' %}"> Logout </a> <br><br>
-    {% endif %}
+Hello <b>{{request.user}}</b>, 
+<a href="{% url 'contact' %}"> Contact Me </a> |
+<a href="{% url 'logoutUser' %}"> Logout </a> <br><br>
+{% endif %}
 
 
-    {% if not request.user.is_authenticated %}
-        <div style="text-align: right;">
-            <a href="{% url 'loginUser' %}"> Login </a> |
-            <a href="{% url 'registerUser' %}"> Register </a>  |
-            <a href="{% url 'contact' %}"> Contact Me </a> 
-        </div> 
-    {% endif %}
+{% if not request.user.is_authenticated %}
+<div style="text-align: right;">
+<a href="{% url 'loginUser' %}"> Login </a> |
+<a href="{% url 'registerUser' %}"> Register </a>  |
+<a href="{% url 'contact' %}"> Contact Me </a> 
+</div> 
+{% endif %}
 
-    <div style="text-align: left;">
-        <a href="{% url 'home' %}"> 
-            <img src="{% static 'images/logo.jpg' %}" 
-            style="height: 2rem; width: 6rem; border-radius: 10px;"> 
-        </a>
-
-    </div>
+<!-- <img src="{% static 'images/logo.jpg' %}" 
+    style="height: 2rem; width: 6rem; border-radius: 10px;">  -->
+<div style="text-align: left;">
+<a href="{% url 'home' %}"> <button> Home </button> </a>
+<a href="{% url 'myProfile' %}"> <button> My Profile </button> </a>
+</div>
 
 </div>
 

@@ -3,42 +3,39 @@
 {% block content %}
 
 <style>
-    .post {
-        width: 40%;
-        border-left: 3px solid lightblue;
-        padding-left: 20px;
-        padding-top: 1%;
-    }
-    .image {
-        width: 100%;
-        max-height: auto;
-    }
-    a {
-        text-decoration: none;
-    }
+.post {
+  border-left: 3px solid lightblue;
+  padding-left: 20px;
+  padding-top: 1%;
+}
+.image {
+  width: 100%;
+  max-height: auto;
+}
+a {
+  text-decoration: none;
+}
 </style>
 
 {% if request.user.is_authenticated %}
-    {% for post in posts %}
-        <div class="post">
-            {% if updatePost %}
-                {% if updatePost.id == post.id %}
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        {{form.as_p}} 
-                            {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="" class="image"><br>
-                            {% else %}
-
-                            {% endif %}
-                        <input type="submit" value="Save"> |  <a href="{{request.META.HTTP_REFERER}}"> Abort </a>
-                    </form> 
-                {% endif %} 
-            {% else %}
-
-            {% endif %}
-        </div>
-    {% endfor %}
+{% for post in posts %}
+<div class="post">
+  {% if updatePost %}
+  {% if updatePost.id == post.id %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}} 
+      {% if post.image %}
+      <img src="{{ post.image.url }}" alt="" class="image"><br>
+      {% else %}
+      {% endif %}
+    <input type="submit" value="Save"> | <a href="{{request.META.HTTP_REFERER}}"> Abort </a>
+  </form> 
+  {% endif %} 
+  {% else %}
+{% endif %}
+</div>
+{% endfor %}
 {% endif %}
 
 

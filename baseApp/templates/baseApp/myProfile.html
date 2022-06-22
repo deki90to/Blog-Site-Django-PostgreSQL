@@ -1,0 +1,91 @@
+{% extends 'baseApp/base.html' %}
+
+{% block content %}
+
+<style>
+.my-profile-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}
+.my-profile-left {
+	margin-right: 10px;
+	padding-left: 10px;
+}
+.image {
+  width: 100%;
+  max-height: auto;
+}
+.profile-image {
+	 width: 95%;
+}
+</style>
+
+<div class="my-profile-wrapper">
+	<div class="my-profile-left"> 
+		<h3> My Info </h3> <hr>
+			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a> <br><br>
+			Username: {{ user }} <br> <br>
+			Last online: {{ user.last_login }} <br><hr><br>
+			Account created: {{ user.date_joined }}
+<!-- 		<form method="post">
+			{% csrf_token %}
+			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" height="180"></a> <br>
+			First name: <br>
+			<input type="text" name="firstname" required> <br><br>
+			Last name: <br>
+			<input type="text" name="lastname" required> <br><br>
+			Date of birth: <br>
+			<input type="date" id="start" name="yearofbirth"
+      	min="1960-01-01" max="2022-12-31" required> <br><br>
+			City: <br>
+			<input type="text" name="city" required> <br><br>
+
+			<input type="submit" value="Save Profil">
+		</form> -->
+	</div>
+
+
+	<div class="my-profile-right">
+	<h3> My posts </h3> <hr>
+	{% for post in posts %}
+	{% if request.user == post.user %}
+	<div class="post">
+	<h5>@{{post.user}} / {{post.created.date}}</h5> 
+	<a href="{% url 'comment' post.pk %}?page={{posts.number}}"> 
+	<h3> {{post|safe}} </h3>
+
+	{% if post.image %}
+	  <img src="{{ post.image.url }}" alt="" class="image"><br>
+	{% endif %}
+
+	{% if request.user.is_authenticated %}
+	  {% if request.user == post.user %}
+	  <small>
+	    <a href="{% url 'update' post.pk %}"> Update  </a> |
+	    <a href="{% url 'deletePost' post.pk %}"> Delete </a>
+	  </small> <br> <br>
+	  <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
+	  {% else %}
+	  <div class="postLikes">
+	    <input type="hidden" name="next" value="{{request.path}}">
+	    <form action="{% url 'like' post.pk %}" method="POST">
+	      {% csrf_token %}
+	      <button type="submit" class="btnLike">Like <b>{{post.likes.count}}</b></button>
+	    </form>
+
+	    <input type="hidden" name="next" value="{{request.path}}">
+	    <form action="{% url 'dislike' post.pk %}" method="POST">
+	      {% csrf_token %}
+	      <button type="submit" class="btnDislike"> Dislike <b>{{post.dislikes.count}}</b></button>
+	    </form> <br><br>
+	  </div>
+	  {% endif %} 
+	{% endif %}
+	</a>
+	</div> 
+	{% endif %}
+	{% endfor %} 
+	</div>
+
+</div>
+{% endblock %}

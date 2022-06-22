@@ -8,8 +8,9 @@
   <b> {{ participant.user }} </b> commented {{ participant.post.user }}'s 
 
   {% if participant.post.image %} 
-    image <a href="{% url 'comment' participant.post.id %}">
-      <img src="{{ participant.post.image.url }}" style="width: 100%;">
+    image 
+    <a href="{% url 'comment' participant.post.id %}">
+    <img src="{{ participant.post.image.url }}" style="width: 100%;">
     </a>
   {% else %}
     post <small><small>>></small></small> 

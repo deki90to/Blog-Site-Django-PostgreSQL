@@ -41,7 +41,6 @@ def home(request):
 @login_required(login_url='loginUser')
 def comment(request, pk):
     # posts = Post.objects.all()
-        
     participants = Comment.objects.all()
     post = Post.objects.get(pk=pk)
     comments = post.comment_set.all()
@@ -233,3 +232,17 @@ def addDislike(request, pk):
         post.dislikes.remove(request.user)
         
     return redirect(next)
+
+
+
+def myProfile(request):
+    posts = Post.objects.all()
+    user = Post.objects.all()[:1].get()
+    return render(request, 'baseApp/myProfile.html', {'posts': posts})
+
+# def myProfileData(request):
+#     fname = request.POST['firstname']
+#     lname = request.POST['lastname']
+#     city = request.POST['city']
+#     dateofb = request.POST['yearofbirth']
+#     profile = 

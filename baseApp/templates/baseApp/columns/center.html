@@ -1,78 +1,77 @@
 <style>
-    .comment {
-        border-left: 2px solid lightblue;
-        border-bottom: 2px solid lightblue;
-        border-radius: 10px;
-        padding-left: 5px;
-    }
-    .topicImage {
-        width: 60%;
-        height: auto;
-    }
+.comment {
+  border-left: 2px solid lightblue;
+  border-bottom: 2px solid lightblue;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+.topicImage {
+  width: 100%;
+  max-height: auto;}
 </style>
 
 {% if comments %}
 <h3> Topic </h3> 
 <h4> {{post}} </h4> <hr>
-    {% if post.image %}
-        <a href="{% url 'pictures' post.id %}">
-            <img src="{{ post.image.url }}" class="topicImage" style="width: 100%">
-        </a> <br> <br>
-    {% endif %} 
-    
+{% if post.image %}
+<a href="{% url 'pictures' post.id %}">
+  <img src="{{ post.image.url }}" class="topicImage" style="width: 100%">
+</a> <br> <br>
+{% endif %} 
+
 <i> Comments </i> <br><br>
 <!-- Adding new comment if already commented -->
 {% if request.user.is_authenticated %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="comment" placeholder="New Comment">
-        <input type="submit" value="Comment">
-    </form>
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="text" name="comment" placeholder="New Comment">
+  <input type="submit" value="Comment">
+</form>
 {% else %} 
-    <a href="{% url 'loginUser' %}"> Login </a> or <a href="registerUser"> Register </a> So You Can Comment!
+<a href="{% url 'loginUser' %}"> Login </a> or <a href="registerUser"> Register </a> So You Can Comment!
 {% endif %}<br>
 
 
 {% if messages %}
-    {% for message in messages %}
-        {{message}} <br> <br>
-    {% endfor %}
+{% for message in messages %}
+{{message}} <br> <br>
+{% endfor %}
 {% endif %}
 
 {% for comment in comments %}
-    <div class="comment"> <br>
-        <b>@{{comment.user}}</b> / {{comment.created.date}} / {{comment.created.time}}
-        <p> - {{comment.comment|slice:"500"|safe}}
+<div class="comment"> <br>
+<b>@{{comment.user}}</b> / {{comment.created.date}} / {{comment.created.time}}
+<p> - {{comment.comment|slice:"500"|safe}}
 
-            {% if request.user == comment.user %}
-                <small> <a href="{% url 'deleteComment' comment.pk %}"> | Delete </a> </small>
-            {% endif %} 
-        </p>
-    </div>
+{% if request.user == comment.user %}
+<small> <a href="{% url 'deleteComment' comment.pk %}"> | Delete </a> </small>
+{% endif %} 
+</p>
+</div>
 {% endfor %} <br>
 
 {% else %}
 <!-- Adding new comment INPUT if there's NO COMMENTS -->
 {% if request.user.is_authenticated %}
-    {% if post %}
-        <h3> Topic </h3> <hr>
-        <b> {{post}} </b> <br> <br>
+{% if post %}
+<h3> Topic </h3> <hr>
+<b> {{post}} </b> <br> <br>
 
-        {% if post.image %}
-            <a href="{% url 'pictures' post.id %}">
-                <img src="{{ post.image.url }}" alt="" height="100" width="200" class="topicImage">
-            </a> <br> <br>
-        {% endif %}
+{% if post.image %}
+<a href="{% url 'pictures' post.id %}">
+  <img src="{{ post.image.url }}" alt="" height="100" width="200" class="topicImage">
+</a> <br> <br>
+{% endif %}
 
-        <i>Comments</i> <br> <br>
-            <form action="" method="POST">
-                {% csrf_token %}
-                <input type="text" name="comment" placeholder="New Comment">
-                <input type="submit" value="Comment">
-            </form>
-    {% else %}
-        <p> 🢇 Click POST to see comments </p>
-    {% endif %}
+<i>Comments</i> <br> <br>
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="text" name="comment" placeholder="New Comment">
+  <input type="submit" value="Comment">
+</form>
+{% else %}
+<p> 🢇 Click POST to see comments </p>
+{% endif %}
 
 {% endif %}
 

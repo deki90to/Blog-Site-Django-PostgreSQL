@@ -24,7 +24,7 @@ def loginUser(request):
 def logoutUser(request):
     logout(request)
     messages.error(request, 'Logged Out')
-    return redirect('home')
+    return redirect('loginUser')
 
 
 

@@ -14,4 +14,5 @@ urlpatterns = [
     path('pictures/<pk>/', views.pictures, name='pictures'),
     path('like/<pk>/', views.addLike, name='like'),
     path('dislike/<pk>/', views.addDislike, name='dislike'),
+    path('my-profile/', views.myProfile, name='myProfile'),
 ]
