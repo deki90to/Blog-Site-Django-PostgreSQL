@@ -3,22 +3,31 @@ from django.contrib.auth.models import User
 from django.db.models.fields import CharField
 from django.db.models.signals import post_save
 from django_resized import ResizedImageField
+from birthday import BirthdayField, BirthdayManager
 
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 
 
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    profile_image = ResizedImageField(size=[1280, 720], quality=100, null=True, blank=True, upload_to='profil_images/')
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.IntegerField(blank=True, null=True)
+    birthday = BirthdayField(blank=True, null=True)
+    objects = BirthdayManager()
+
+    def __str__(self):
+        return f'{self.first_name, self.last_name, self.email, self.phone}'
+
+
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     post = models.TextField()
     image = ResizedImageField(size=[1280, 720], quality=100, null=True, blank=True, upload_to='images/')
-    # imageA = ResizedImageField(size=[1280, 240], quality=100, null=True, blank=True, upload_to='images/')
-    # imageB = ResizedImageField(size=[1280, 240], quality=100, null=True, blank=True, upload_to='images/')
-    # imageC = ResizedImageField(size=[1280, 240], quality=100, null=True, blank=True, upload_to='images/')
-    # imageD = ResizedImageField(size=[1280, 240], quality=100, null=True, blank=True, upload_to='images/')
-    # imageE = ResizedImageField(size=[1280, 240], quality=100, null=True, blank=True, upload_to='images/')
-    # imageF = ResizedImageField(size=[1280, 240], quality=100, null=True, blank=True, upload_to='images/')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')

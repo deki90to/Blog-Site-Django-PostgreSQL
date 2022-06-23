@@ -62,12 +62,6 @@ def comment(request, pk):
         messages.success(request, '✔Commented')
         return redirect('comment', pk=post.id)
     
-    # if request.method == 'DELETE':
-    #     post = Post.objects.get(pk=pk)
-    #     post.delete()
-    #     messages.success(request, 'Post Deleted.....')
-    #     return redirect('home', pk=post.id)
-
     context = {'post': post, 'comments': comments, 'posts': posts, 'participants': participants, 'page': page}
     return render(request, 'baseApp/home.html', context)
 
@@ -80,23 +74,6 @@ def search(request):
     
     context = {'searched': searched, 'q': q}
     return render(request, 'baseApp/search.html', context)
-
-
-
-# @login_required(login_url='login')
-# def createPost(request):
-#     form = PostForm()
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.user = request.user
-#             post.save()
-#             messages.success(request, 'Posted')
-#             return redirect('home')
-
-#     context = {'form': form}
-#     return render(request, 'baseApp/create.html', context)
 
 
 
@@ -235,14 +212,33 @@ def addDislike(request, pk):
 
 
 
+@login_required(login_url='loginUser')
 def myProfile(request):
     posts = Post.objects.all()
-    user = Post.objects.all()[:1].get()
+    infos = UserProfile.objects.all()
     return render(request, 'baseApp/myProfile.html', {'posts': posts})
 
-# def myProfileData(request):
-#     fname = request.POST['firstname']
-#     lname = request.POST['lastname']
-#     city = request.POST['city']
-#     dateofb = request.POST['yearofbirth']
-#     profile = 
+
+
+@login_required(login_url='loginUser')
+def myProfileForm(request):
+    posts = Post.objects.all()
+    if request.method == 'POST':
+        user = request.user
+        image=request.FILES.get('userProfileImage')
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        user_profile = UserProfile(
+            user=user,
+            profile_image=image,
+            first_name=firstname,
+            last_name=lastname,
+            email=email,
+            phone=phone,
+        )
+        user_profile.save()
+        return redirect('myProfile')
+
+    return render(request, 'baseApp/myProfileForm.html', {'posts': posts})

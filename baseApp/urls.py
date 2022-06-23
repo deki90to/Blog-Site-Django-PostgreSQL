@@ -15,4 +15,5 @@ urlpatterns = [
     path('like/<pk>/', views.addLike, name='like'),
     path('dislike/<pk>/', views.addDislike, name='dislike'),
     path('my-profile/', views.myProfile, name='myProfile'),
+    path('my-profile-form/', views.myProfileForm, name='myProfileForm'),
 ]

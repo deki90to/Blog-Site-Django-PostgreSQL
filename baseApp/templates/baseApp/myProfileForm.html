@@ -22,13 +22,29 @@
 
 <div class="my-profile-wrapper">
 	<div class="my-profile-left"> 
-		<h3> My Info </h3> <hr>
-			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a>
-			<a href="{% url 'myProfileForm' %}"> Add informations to your profile </a> <br><br>
-			Username: {{ request.user }} <br> <br>
+		<h3> Profile Form </h3> <hr>
+<!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a>  -->
+		<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+			User profile image <br><br>
+			<input type="file" name="userProfileImage" required> <br><br>
+			First Name <br>
+			<input type="text" name="firstname" required> <br><br>
+			Last Name <br>
+			<input type="text" name="lastname" required> <br><br>
+			Email <br>
+			<input type="email" name="email" required> <br><br>
+			Phone <br>
+			<input type="number" name="phone" required> <br><br>
+			Birthday <br>
+			<input type="date" name="birthday"
+		       min="1950-01-01" max="2023-01-01"> <br><br>
+			<input type="submit" value="Save">
+		</form><br><br>
 
-			Last online: {{ user.last_login }} <br><hr><br>
-			Account created: {{ user.date_joined }}
+		Username: {{ request.user }} <br> <br>
+		Last online: {{ user.last_login }} <br><hr><br>
+		Account created: {{ user.date_joined }}
 	</div>
 
 
