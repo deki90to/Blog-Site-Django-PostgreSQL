@@ -5,7 +5,9 @@
   {% for participant in participants %}
 
   {% if participant.post %}
-  <b> {{ participant.user }} </b> commented {{ participant.post.user }}'s 
+  <b> <a href="{% url 'userProfile' participant.user.pk %}">{{ participant.user }}</a> </b> 
+    commented 
+  <a href="{% url 'userProfile' participant.user.pk %}">{{ participant.post.user }}'s </a>
 
   {% if participant.post.image %} 
     image 

@@ -20,7 +20,7 @@
 {% if searched %}
 {% for search in searched %}
 <div class="search">
-<b> <h5>@{{search.user}} </b> / {{search.created.date}}</h5>
+<b> <h5><a href="{% url 'userProfile' search.user.pk %}">@{{search.user}} </a> </b> / {{search.created.date}}</h5>
 <a href="{% url 'comment' search.pk %}">
   <h3>{{search}}</h3>
   {% if search.image %}

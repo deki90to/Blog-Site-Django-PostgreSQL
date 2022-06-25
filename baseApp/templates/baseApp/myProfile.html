@@ -63,6 +63,7 @@
 		    <a href="{% url 'deletePost' post.pk %}"> Delete </a>
 		  </small> <br> <br>
 		  <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
+		  
 		  {% else %}
 		  <div class="postLikes">
 		    <input type="hidden" name="next" value="{{request.path}}">

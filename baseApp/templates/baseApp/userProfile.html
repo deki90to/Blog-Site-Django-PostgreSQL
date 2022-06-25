@@ -1,7 +1,91 @@
 {% extends 'baseApp/base.html' %}
 
 {% block content %}
-	{{ user }}
-	{{ user_profile }}
-{% endblock %}
 
+<style>
+.my-profile-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}
+.my-profile-left {
+	margin-right: 10px;
+	padding-left: 10px;
+}
+.image {
+  width: 100%;
+  max-height: auto;
+}
+.profile-image {
+	 width: 95%;
+}
+.postLikes {
+  display: flex;
+}
+.btnLike, .btnDislike {
+  font-size: 70%;
+  margin-right: 5px;
+  border: 0px;
+  cursor: pointer;
+}
+</style>
+
+<div class="my-profile-wrapper">
+	<div class="my-profile-left"> 
+		<h3> My Info </h3> 
+<!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a> -->
+
+		{% for user in userDetails %}
+		<!-- {% if request.user == user.user %} -->
+		<img src="{{ user.image.url }}" alt="" class="image"><br>
+			Username: {{ user.user }} <br>
+			First name: {{ user.first_name }} <br> 
+			Last name: {{ user.last_name }} <br> 
+			Email: {{ user.email }} <br> 
+			Phone: {{ user.phone }} <hr>
+		<!-- {% endif %} -->
+		{% endfor %}
+
+		Last online: {{ user.last_login }} <br> 
+		Account created: {{ user.date_joined }} <br>
+	</div>
+
+
+	<div class="my-profile-right">
+	<h3> My posts </h3> 
+	{% for post in userPosts %}
+		<div class="post">
+		<h5>@{{ post.user }} / {{ post.created.date }}</h5> 
+		<a href="{% url 'comment' post.pk %}?page={{posts.number}}"> 
+		<h3> {{post|safe}} </h3>
+
+		{% if post.image %}
+		  <img src="{{ post.image.url }}" alt="" class="image"><br>
+		{% endif %}
+
+		{% if request.user.is_authenticated %}
+		  {% if request.user == post.user %}
+		  <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
+		  
+		  {% else %}
+		  <div class="postLikes">
+		    <input type="hidden" name="next" value="{{request.path}}">
+		    <form action="{% url 'like' post.pk %}" method="POST">
+		      {% csrf_token %}
+		      <button type="submit" class="btnLike">Like <b>{{post.likes.count}}</b></button>
+		    </form>
+
+		    <input type="hidden" name="next" value="{{request.path}}">
+		    <form action="{% url 'dislike' post.pk %}" method="POST">
+		      {% csrf_token %}
+		      <button type="submit" class="btnDislike"> Dislike <b>{{post.dislikes.count}}</b></button>
+		    </form> <br><br>
+		  </div>
+		  {% endif %} 
+		{% endif %}
+		</a>
+		</div> 
+	{% endfor %} 
+	</div>
+
+</div>
+{% endblock %}

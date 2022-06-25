@@ -12,6 +12,7 @@ from django.core.paginator import EmptyPage, Paginator
 from django.contrib.auth.models import User
 
 
+
 def home(request):
     if request.method == 'GET':
         # posts = Post.objects.all()
@@ -142,16 +143,15 @@ def contact(request):
         return render(request, 'baseApp/home.html', {'email': email, 'message': message})
     else:
         return render(request, 'baseApp/contact.html')
-    
-    
-    
+
+
+
 @login_required(login_url='loginUser')
 def pictures(request, pk):
     post = Post.objects.get(pk=pk)
     
     context = {'post': post}
     return render(request, 'baseApp/pictures.html', context)
-
 
 
 
@@ -231,14 +231,7 @@ def myProfileForm(request):
         lastname = request.POST['lastname']
         email = request.POST['email']
         phone = request.POST['phone']
-        user_profile = UserProfile(
-            user=user,
-            profile_image=image,
-            first_name=firstname,
-            last_name=lastname,
-            email=email,
-            phone=phone,
-        )
+        user_profile = UserProfile(user=user, profile_image=image, first_name=firstname, last_name=lastname, email=email, phone=phone)
         user_profile.save()
         return redirect('myProfile')
 
@@ -247,6 +240,7 @@ def myProfileForm(request):
 
 
 def userProfile(request, pk):
-    user = User.objects.get(pk=pk)
-    user_profile = user.userprofile_set.all()
-    return render(request, 'baseApp/userProfile.html', {'user': user, 'user_profile': user_profile})
+    postUser = User.objects.get(pk=pk)
+    userDetails = postUser.userprofile_set.all()
+    userPosts = postUser.post_set.all()
+    return render(request, 'baseApp/userProfile.html', {'postUser': postUser, 'userDetails': userDetails, 'userPosts': userPosts})

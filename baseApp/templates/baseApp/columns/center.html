@@ -7,12 +7,13 @@
 }
 .topicImage {
   width: 100%;
-  max-height: auto;}
+  max-height: auto;
+}
 </style>
 
 {% if comments %}
 <h3> Topic </h3> 
-<h4> {{post}} </h4> <hr>
+<h4> {{ post }} </h4> <hr>
 {% if post.image %}
 <a href="{% url 'pictures' post.id %}">
   <img src="{{ post.image.url }}" class="topicImage" style="width: 100%">
@@ -40,7 +41,7 @@
 
 {% for comment in comments %}
 <div class="comment"> <br>
-<b>@{{comment.user}}</b> / {{comment.created.date}} / {{comment.created.time}}
+<b><a href="{% url 'userProfile' comment.user.pk %}">@{{comment.user}}</a> </b> / {{comment.created.date}} / {{comment.created.time}}
 <p> - {{comment.comment|slice:"500"|safe}}
 
 {% if request.user == comment.user %}
@@ -70,7 +71,7 @@
   <input type="submit" value="Comment">
 </form>
 {% else %}
-<p> 🢇 Click POST to see comments </p>
+<p> 🢇 Click on post to see or add comment </p>
 {% endif %}
 
 {% endif %}

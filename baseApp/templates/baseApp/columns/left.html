@@ -42,7 +42,7 @@
 <a href="?page={{posts.next_page_number}}"> <button> &raquo</button> </a> |
 <a href="?page={{posts.paginator.num_pages}}"> <button> {{posts.paginator.num_pages}} </button> </a> </a>
 {% endif %} 
-( {{posts.number}} of {{posts.paginator.num_pages}} pages )<br><br>
+( {{posts.number}} of {{posts.paginator.num_pages}} pages )<br>
 
 {% for post in posts %}
 <div class="post">
