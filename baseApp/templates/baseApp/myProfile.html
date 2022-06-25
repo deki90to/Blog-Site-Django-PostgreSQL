@@ -15,31 +15,33 @@
   width: 100%;
   max-height: auto;
 }
-.profile-image {
-	 width: 95%;
+.my-profil-image {
+	 width: 50%;
+	 border-radius: 50%;
 }
 </style>
 
 <div class="my-profile-wrapper">
 	<div class="my-profile-left"> 
-		<h3> My Info </h3> 
-<!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a> -->
-		<a href="{% url 'myProfileForm' %}"> Add extra informations to your profile </a> <br><br>
+	<h3> My Info </h3> 
 
-		Username: {{ request.user }}
+	<a href="{% url 'myProfileForm' %}"> Add extra informations to your profile </a> <br><br>
+	<!-- NE VIDI SE U MY INFO SEKCIJI BEZ POPUNJENE FORME -->
 
-		{% for user in user_profile %}
-		<!-- {% if request.user == user.user %} -->
-		<img src="{{ user.image.url }}" alt="" class="image"><br>
-			First name: {{ user.first_name }} <br> 
-			Last name: {{ user.last_name }} <br> 
-			Email: {{ user.email }} <br> 
-			Phone: {{ user.phone }} <hr>
-		<!-- {% endif %} -->
-		{% endfor %}
 
-		Last online: {{ user.last_login }} <br> 
-		Account created: {{ user.date_joined }} <br>
+	{% for user in userProfile %}
+	{% if request.user == user.user %}
+		<img src="{{ user.profile_image.url }}" alt="" class="my-profil-image"> <br> <br>
+		Username: {{ request.user }} <br> 
+		First name: {{ user.first_name }} <br> 
+		Last name: {{ user.last_name }} <br> 
+		Email: {{ user.email }} <br> 
+		Phone: +3816{{ user.phone }} <hr>
+	{% endif %}
+	{% endfor %}
+
+	Last online: {{ user.last_login }} <br> 
+	Account created: {{ user.date_joined }} <br>
 	</div>
 
 
@@ -63,7 +65,7 @@
 		    <a href="{% url 'deletePost' post.pk %}"> Delete </a>
 		  </small> <br> <br>
 		  <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
-		  
+
 		  {% else %}
 		  <div class="postLikes">
 		    <input type="hidden" name="next" value="{{request.path}}">

@@ -15,8 +15,9 @@
   width: 100%;
   max-height: auto;
 }
-.profile-image {
-	 width: 95%;
+.user-profile-image {
+	width: 50%;
+	border-radius: 50%;
 }
 .postLikes {
   display: flex;
@@ -32,17 +33,14 @@
 <div class="my-profile-wrapper">
 	<div class="my-profile-left"> 
 		<h3> My Info </h3> 
-<!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a> -->
 
 		{% for user in userDetails %}
-		<!-- {% if request.user == user.user %} -->
-		<img src="{{ user.image.url }}" alt="" class="image"><br>
+		<img src="{{ user.profile_image.url }}" alt="" class="user-profile-image"><br> <br>
 			Username: {{ user.user }} <br>
 			First name: {{ user.first_name }} <br> 
 			Last name: {{ user.last_name }} <br> 
 			Email: {{ user.email }} <br> 
 			Phone: {{ user.phone }} <hr>
-		<!-- {% endif %} -->
 		{% endfor %}
 
 		Last online: {{ user.last_login }} <br> 

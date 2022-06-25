@@ -216,8 +216,8 @@ def addDislike(request, pk):
 @login_required(login_url='loginUser')
 def myProfile(request):
     posts = Post.objects.all()
-    user_profile = UserProfile.objects.all()
-    return render(request, 'baseApp/myProfile.html', {'posts': posts, 'user_profile': user_profile})
+    userProfile = UserProfile.objects.all()
+    return render(request, 'baseApp/myProfile.html', {'posts': posts, 'userProfile': userProfile})
 
 
 
@@ -234,11 +234,11 @@ def myProfileForm(request):
         user_profile = UserProfile(user=user, profile_image=image, first_name=firstname, last_name=lastname, email=email, phone=phone)
         user_profile.save()
         return redirect('myProfile')
-
     return render(request, 'baseApp/myProfileForm.html', {'posts': posts})
 
 
 
+@login_required(login_url='loginUser')
 def userProfile(request, pk):
     postUser = User.objects.get(pk=pk)
     userDetails = postUser.userprofile_set.all()
