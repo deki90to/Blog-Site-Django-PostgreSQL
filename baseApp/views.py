@@ -245,6 +245,8 @@ def myProfileForm(request):
     return render(request, 'baseApp/myProfileForm.html', {'posts': posts})
 
 
+
 def userProfile(request, pk):
     user = User.objects.get(pk=pk)
-    return render(request, 'baseApp/userProfile.html', {'user': user})
+    user_profile = user.userprofile_set.all()
+    return render(request, 'baseApp/userProfile.html', {'user': user, 'user_profile': user_profile})

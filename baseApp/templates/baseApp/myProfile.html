@@ -26,19 +26,20 @@
 <!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a> -->
 		<a href="{% url 'myProfileForm' %}"> Add extra informations to your profile </a> <br><br>
 
-		Username: {{ request.user }} <br> <br>
-		Last online: {{ user.last_login }} <br> <br>
+		Username: {{ request.user }}
+
+		{% for user in user_profile %}
+		<!-- {% if request.user == user.user %} -->
+		<img src="{{ user.image.url }}" alt="" class="image"><br>
+			First name: {{ user.first_name }} <br> 
+			Last name: {{ user.last_name }} <br> 
+			Email: {{ user.email }} <br> 
+			Phone: {{ user.phone }} <hr>
+		<!-- {% endif %} -->
+		{% endfor %}
+
+		Last online: {{ user.last_login }} <br> 
 		Account created: {{ user.date_joined }} <br>
-			{% for user in user_profile %}
-			<!-- {% if request.user == user.user %} -->
-			<img src="{{ user.image.url }}" alt="" class="image"><br>
-				First name: {{ user.first_name }} <br> <br>
-				Last name: {{ user.last_name }} <br> <br>
-				Email: {{ user.email }} <br> <br>
-				Phone: {{ user.phone }} <br> <br>
-			<!-- {% endif %} -->
-			{% endfor %}
-			{{ user }}
 	</div>
 
 
