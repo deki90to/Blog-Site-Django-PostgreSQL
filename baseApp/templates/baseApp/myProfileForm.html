@@ -22,7 +22,7 @@
 
 <div class="my-profile-wrapper">
 	<div class="my-profile-left"> 
-		<h3> Profile Form </h3> <hr>
+		<h3> Profile Form </h3> 
 <!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a>  -->
 		<form method="post" enctype="multipart/form-data">
 		{% csrf_token %}
@@ -41,15 +41,15 @@
 		       min="1950-01-01" max="2023-01-01"> <br><br>
 			<input type="submit" value="Save">
 		</form><br><br>
-
+<!-- 
 		Username: {{ request.user }} <br> <br>
 		Last online: {{ user.last_login }} <br><hr><br>
-		Account created: {{ user.date_joined }}
+		Account created: {{ user.date_joined }} -->
 	</div>
 
 
 	<div class="my-profile-right">
-	<h3> My posts </h3> <hr>
+	<h3> My posts </h3> 
 	{% for post in posts %}
 	{% if request.user == post.user %}
 	<div class="post">

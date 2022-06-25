@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, Paginator
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -215,8 +216,8 @@ def addDislike(request, pk):
 @login_required(login_url='loginUser')
 def myProfile(request):
     posts = Post.objects.all()
-    infos = UserProfile.objects.all()
-    return render(request, 'baseApp/myProfile.html', {'posts': posts})
+    user_profile = UserProfile.objects.all()
+    return render(request, 'baseApp/myProfile.html', {'posts': posts, 'user_profile': user_profile})
 
 
 
@@ -242,3 +243,8 @@ def myProfileForm(request):
         return redirect('myProfile')
 
     return render(request, 'baseApp/myProfileForm.html', {'posts': posts})
+
+
+def userProfile(request, pk):
+    user = User.objects.get(pk=pk)
+    return render(request, 'baseApp/userProfile.html', {'user': user})

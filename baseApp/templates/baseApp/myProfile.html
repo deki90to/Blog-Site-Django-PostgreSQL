@@ -22,54 +22,64 @@
 
 <div class="my-profile-wrapper">
 	<div class="my-profile-left"> 
-		<h3> My Info </h3> <hr>
-			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a>
-			<a href="{% url 'myProfileForm' %}"> Add informations to your profile </a> <br><br>
-			Username: {{ request.user }} <br> <br>
+		<h3> My Info </h3> 
+<!-- 			<a href=""><img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg" class="profile-image"></a> -->
+		<a href="{% url 'myProfileForm' %}"> Add extra informations to your profile </a> <br><br>
 
-			Last online: {{ user.last_login }} <br><hr><br>
-			Account created: {{ user.date_joined }}
+		Username: {{ request.user }} <br> <br>
+		Last online: {{ user.last_login }} <br> <br>
+		Account created: {{ user.date_joined }} <br>
+			{% for user in user_profile %}
+			<!-- {% if request.user == user.user %} -->
+			<img src="{{ user.image.url }}" alt="" class="image"><br>
+				First name: {{ user.first_name }} <br> <br>
+				Last name: {{ user.last_name }} <br> <br>
+				Email: {{ user.email }} <br> <br>
+				Phone: {{ user.phone }} <br> <br>
+			<!-- {% endif %} -->
+			{% endfor %}
+			{{ user }}
 	</div>
 
 
 	<div class="my-profile-right">
-	<h3> My posts </h3> <hr>
+	<h3> My posts </h3> 
 	{% for post in posts %}
 	{% if request.user == post.user %}
-	<div class="post">
-	<h5>@{{post.user}} / {{post.created.date}}</h5> 
-	<a href="{% url 'comment' post.pk %}?page={{posts.number}}"> 
-	<h3> {{post|safe}} </h3>
+		<div class="post">
+		<h5>@{{post.user}} / {{post.created.date}}</h5> 
+		<a href="{% url 'comment' post.pk %}?page={{posts.number}}"> 
+		<h3> {{post|safe}} </h3>
 
-	{% if post.image %}
-	  <img src="{{ post.image.url }}" alt="" class="image"><br>
-	{% endif %}
+		{% if post.image %}
+		  <img src="{{ post.image.url }}" alt="" class="image"><br>
+		{% endif %}
 
-	{% if request.user.is_authenticated %}
-	  {% if request.user == post.user %}
-	  <small>
-	    <a href="{% url 'update' post.pk %}"> Update  </a> |
-	    <a href="{% url 'deletePost' post.pk %}"> Delete </a>
-	  </small> <br> <br>
-	  <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
-	  {% else %}
-	  <div class="postLikes">
-	    <input type="hidden" name="next" value="{{request.path}}">
-	    <form action="{% url 'like' post.pk %}" method="POST">
-	      {% csrf_token %}
-	      <button type="submit" class="btnLike">Like <b>{{post.likes.count}}</b></button>
-	    </form>
+		{% if request.user.is_authenticated %}
+		  {% if request.user == post.user %}
+		  <small>
+		    <a href="{% url 'update' post.pk %}"> Update  </a> |
+		    <a href="{% url 'deletePost' post.pk %}"> Delete </a>
+		  </small> <br> <br>
+		  <small> Likes {{post.likes.count}} | Dislikes {{post.dislikes.count}} </small> <br><br>
+		  {% else %}
+		  <div class="postLikes">
+		    <input type="hidden" name="next" value="{{request.path}}">
+		    <form action="{% url 'like' post.pk %}" method="POST">
+		      {% csrf_token %}
+		      <button type="submit" class="btnLike">Like <b>{{post.likes.count}}</b></button>
+		    </form>
 
-	    <input type="hidden" name="next" value="{{request.path}}">
-	    <form action="{% url 'dislike' post.pk %}" method="POST">
-	      {% csrf_token %}
-	      <button type="submit" class="btnDislike"> Dislike <b>{{post.dislikes.count}}</b></button>
-	    </form> <br><br>
-	  </div>
-	  {% endif %} 
-	{% endif %}
-	</a>
-	</div> 
+		    <input type="hidden" name="next" value="{{request.path}}">
+		    <form action="{% url 'dislike' post.pk %}" method="POST">
+		      {% csrf_token %}
+		      <button type="submit" class="btnDislike"> Dislike <b>{{post.dislikes.count}}</b></button>
+		    </form> <br><br>
+		  </div>
+		  {% endif %} 
+		{% endif %}
+		</a>
+		</div> 
 	{% endif %}
 	{% endfor %} 
 	</div>

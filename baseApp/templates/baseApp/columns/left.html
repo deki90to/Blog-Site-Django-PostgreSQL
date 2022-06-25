@@ -46,7 +46,7 @@
 
 {% for post in posts %}
 <div class="post">
-<h5>@{{post.user}} / {{post.created.date}}</h5> 
+<h5>@<a href="{% url 'userProfile' post.user.pk %}">{{post.user}}</a> / {{post.created.date}}</h5> 
 <a href="{% url 'comment' post.pk %}?page={{posts.number}}"> 
 <h3> {{post|slice:"500"|safe}} </h3>
 
