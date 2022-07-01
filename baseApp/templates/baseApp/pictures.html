@@ -3,20 +3,20 @@
 {% block content %}
 
 <style>
-    .pictures {
-        text-align: center;
-        justify-content: center;
-        cursor: pointer;
-    }
+.pictures {
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+}
 </style>
 
 <div class="pictures">
-    {% if post.image.url %}
-        <a href="{{ request.META.HTTP_REFERER }}"> 
-            <img src="{{ post.image.url }}" alt="" width="100%"> 
-        </a>
-    {% else %}
-    {% endif %}
+{% if post.image.url %}
+  <a href="{{ request.META.HTTP_REFERER }}"> 
+    <img src="{{ post.image.url }}" alt="" width="100%"> 
+  </a>
+{% else %}
+{% endif %}
 
     <!-- {% if post.imageA %}
         <img src="{{ post.imageA.url }}" alt="" width="100%">
